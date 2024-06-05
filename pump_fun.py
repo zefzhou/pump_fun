@@ -24,7 +24,7 @@ class PumpFun:
         self.private_key = private_key
         self.key_pair = Keypair.from_base58_string(self.private_key)
         self.client = Client(RPC)
-        print(self.key_pair.pubkey())
+        print(f'wallet address: {self.key_pair.pubkey()}')
 
     def trade(self,
               token_addr: str,
@@ -167,7 +167,7 @@ class PumpFun:
                 transaction,
                 opts=TxOpts(skip_preflight=True,
                             preflight_commitment="confirmed")).value
-            print(txn_sig)
+            print(f'buy tx: {txn_sig}')
 
             # Confirm transaction
             return confirm_txn(self.client, txn_sig)
@@ -296,7 +296,7 @@ class PumpFun:
                 transaction,
                 opts=TxOpts(skip_preflight=True,
                             preflight_commitment="confirmed")).value
-            print(txn_sig)
+            print(f'sell tx: {txn_sig}')
 
             # Confirm transaction
             return confirm_txn(self.client, txn_sig)
