@@ -11,7 +11,8 @@ def split_array(array, group_size):
         groups.append(array[start:start + group_size])
         start += group_size
     if start < end:
-        groups.append(array[start, end])
+        groups.append(array[start:end])
+    return groups
 
 
 def which_tokens(shuffle, start, batch_size, total_size):

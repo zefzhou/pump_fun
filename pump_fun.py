@@ -34,7 +34,7 @@ class PumpFun:
               retries: int = RETRIES):
         buy_succeed = False
         sell_succeed = False
-        buy_retries = 0
+        buy_retries = retries
         while buy_retries > 0:
             buy_retries -= 1
             succeed = self.buy(mint_str=token_addr,
