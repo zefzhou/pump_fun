@@ -1,0 +1,4 @@
+requests==2.27.1
+solana==0.34.0
+solders==0.21.0
+spl==0.0.1.dev0
