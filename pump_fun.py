@@ -13,6 +13,8 @@ from utils import get_coin_data, get_token_balance, confirm_txn
 from solana.rpc.types import TxOpts
 from solders.keypair import Keypair
 from solana.rpc.api import Client
+import time
+import random
 
 
 class PumpFun:
@@ -37,6 +39,7 @@ class PumpFun:
         buy_retries = retries
         while buy_retries > 0:
             buy_retries -= 1
+            print(f'buying {token_addr}')
             succeed = self.buy(mint_str=token_addr,
                                sol_in=sol_in,
                                slippage_decimal=slippage)
@@ -45,10 +48,13 @@ class PumpFun:
                 break
         if buy_succeed == False:
             print(f'failed to buy {token_addr}, skip selling')
+            return
 
+        time.sleep(random.randint(BUY_SELL_MIN_SECONDS, BUY_SELL_MAX_SECONDS))
         sell_retries = retries
         while sell_retries > 0:
             sell_retries -= 1
+            print(f'selling {token_addr}')
             succeed = self.sell(mint_str=token_addr,
                                 sell_ratio=sell_ratio,
                                 slippage_decimal=slippage)
@@ -167,7 +173,7 @@ class PumpFun:
                 transaction,
                 opts=TxOpts(skip_preflight=True,
                             preflight_commitment="confirmed")).value
-            print(f'buy tx: {txn_sig}')
+            print(f'buy tx: https://solscan.io/tx/{txn_sig}')
 
             # Confirm transaction
             return confirm_txn(self.client, txn_sig)
@@ -296,7 +302,7 @@ class PumpFun:
                 transaction,
                 opts=TxOpts(skip_preflight=True,
                             preflight_commitment="confirmed")).value
-            print(f'sell tx: {txn_sig}')
+            print(f'sell tx: https://solscan.io/tx/{txn_sig}')
 
             # Confirm transaction
             return confirm_txn(self.client, txn_sig)

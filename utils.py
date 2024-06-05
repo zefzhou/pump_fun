@@ -79,7 +79,7 @@ def get_coin_data(mint_str):
         return None
 
 
-def confirm_txn(client, txn_sig, max_retries=20, retry_interval=3):
+def confirm_txn(client, txn_sig, max_retries=10, retry_interval=10):
     retries = 0
     if isinstance(txn_sig, str):
         txn_sig = Signature.from_string(txn_sig)
