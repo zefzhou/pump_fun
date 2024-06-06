@@ -24,6 +24,33 @@ def which_tokens(shuffle, start, batch_size, total_size):
             range(0, start + batch_size - total_size))
 
 
+def get_pk_list(file_path: str = 'accounts.txt'):
+    pk_list = []
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            pk = line.strip()
+            pk_list.append(pk)
+    return pk_list
+
+
+def get_tokens(file_path: str = 'tokens.xlsx'):
+    from openpyxl import load_workbook
+    workbook = load_workbook(filename=file_path)
+    sheet_names = workbook.sheetnames
+    sheet = workbook[sheet_names[0]]
+    data = []
+    for row in sheet.iter_rows(values_only=True):
+        data.append(row)
+    token_list = []
+    for row in data[1:]:
+        token = row[1]
+        if str(token).startswith('http'):
+            token = str(token).split('https://pump.fun/')[1]
+        token_list.append(token)
+    return token_list
+
+
 def trade(pk: str, tokens: list):
     pf = PumpFun(private_key=pk)
     for token in tokens:
@@ -34,10 +61,8 @@ def trade(pk: str, tokens: list):
 
 
 def main():
-    # TODO: read private_key and tokens from file
-    pk_list = []
-
-    token_list = []
+    pk_list = get_pk_list()
+    token_list = get_tokens()
     tokens_list = split_array(token_list, TOKENS_PER_WALLET)
 
     with concurrent.futures.ThreadPoolExecutor(

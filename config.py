@@ -1,7 +1,7 @@
 UNIT_PRICE = 100_000
 UNIT_BUDGET = 250_000
 RPC = "https://api.mainnet-beta.solana.com"
-RETRIES = 10  # 买卖重复次数
+RETRIES = 10  # 买卖重试次数
 SLIPPAGE = 0.02  # 滑点2%
 SOL_IN = 0.01  # 购买多少sol
 SELL_RATIO = 1.0  # 购买的代币售出多少比例,1.0表示全卖出
