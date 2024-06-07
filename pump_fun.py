@@ -53,6 +53,7 @@ class PumpFun:
         time.sleep(random.randint(BUY_SELL_MIN_SECONDS, BUY_SELL_MAX_SECONDS))
         sell_retries = retries
         while sell_retries > 0:
+            time.sleep(SELL_WAIT_SECONDS)
             sell_retries -= 1
             print(f'selling {token_addr}')
             succeed = self.sell(mint_str=token_addr,

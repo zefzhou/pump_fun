@@ -10,3 +10,4 @@ SHUFFLE = 0  # 交互偏移,每次新交互时,自增+1即可. 比如第一天�
 CONCURRENT = 5  # 最多5个钱包并发交易
 BUY_SELL_MIN_SECONDS = 60
 BUY_SELL_MAX_SECONDS = 120
+SELL_WAIT_SECONDS = 20  # 卖出重试间隔20s
