@@ -57,20 +57,14 @@ def get_token_balance(base_mint: str, pub_key: Pubkey):
 
 
 def get_coin_data(mint_str):
-    url = f"https://client-api-2-74b1891ee9f9.herokuapp.com/coins/{mint_str}"
+    url = f"https://frontend-api.pump.fun/coins/{mint_str}"
     headers = {
         "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
         "Accept": "*/*",
         "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br",
         "Referer": "https://www.pump.fun/",
         "Origin": "https://www.pump.fun",
-        "Connection": "keep-alive",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site",
-        "If-None-Match": 'W/"43a-tWaCcS4XujSi30IFlxDCJYxkMKg"'
     }
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
