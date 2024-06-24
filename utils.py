@@ -4,6 +4,18 @@ import requests
 from config import RPC
 from solana.transaction import Signature
 from solders.pubkey import Pubkey
+from bip_utils import *
+from solders.keypair import Keypair
+
+from mnemonic import Mnemonic
+
+
+def mnemonic_to_pk(mnemonic: str) -> str:
+    path = "m/44'/501'/0'/0'"
+    mnemo = Mnemonic("english")
+    seed = mnemo.to_seed(mnemonic)
+    keypair = Keypair.from_seed_and_derivation_path(seed, path)
+    return keypair.__str__()
 
 
 def find_data(data, field):
